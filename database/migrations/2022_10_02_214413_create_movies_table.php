@@ -20,6 +20,9 @@ return new class extends Migration
             $table->text('overview');
             $table->date('release_date');
             $table->string('status')->default('Active');
+            $table->boolean('adult')->default(false);
+            $table->string('image')->default('none');
+            $table->string('video')->default('none');
             $table->timestamps();
             $table->softDeletes();
         });

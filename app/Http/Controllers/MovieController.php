@@ -28,9 +28,18 @@ class MovieController extends Controller
         $response = Http::withToken(env('API_KEY_V4_TMBD'))
             ->get('https://api.themoviedb.org/3/discover/movie', [
                 'language' => 'es'
-            ]);
+            ])->object();
+        dd($response);
+        foreach ($response->results as $data){
+            $movie = new Movie();
+            $movie->id = $data->id;
+            $movie->imdb_id = $data->imdb_id;
+            $movie->save();
+        }
 
-        return response($response);
+        /*$page = $response->json('page');*/
+
+        return response($movies);
     }
 
     /**
