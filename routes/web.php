@@ -11,7 +11,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/movies', [MovieController::class, 'index']);
-Route::get('/index', [MovieController::class, 'create']);
+Route::get('/sync', [MovieController::class, 'index'])->name('sync');
+Route::get('/movies', [MovieController::class, 'create'])->name('movies');
 
 require __DIR__.'/auth.php';

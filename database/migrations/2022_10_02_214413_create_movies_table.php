@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('movies', function (Blueprint $table) {
             $table->integer('id')->unique();
-            $table->string('imdb_id')->unique();
+            $table->string('imdb_id')->unique()->nullable();
             $table->string('title');
             $table->text('overview');
             $table->date('release_date');

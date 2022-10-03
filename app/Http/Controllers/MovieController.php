@@ -20,15 +20,15 @@ class MovieController extends Controller
             'language' => 'es'
         ])->object();
 
-        $response = Http::get('https://api.themoviedb.org/3/movie/550', [
+       /* $response = Http::get('https://api.themoviedb.org/3/movie/550', [
             'api_key' => env('API_KEY_TMBD'),
             'language' => 'es'
-        ])->object();
+        ])->object();*/
 
-        /*$response = Http::withToken(env('API_KEY_V4_TMBD'))
+        $response = Http::withToken(env('API_KEY_V4_TMBD'))
             ->get('https://api.themoviedb.org/3/discover/movie', [
                 'language' => 'es'
-            ])->object();*/
+            ])->object();
 
         /*$response = Http::withToken(env('API_KEY_V4_TMBD'))
             ->get('https://api.themoviedb.org/3/movie/550/images', [
@@ -36,9 +36,10 @@ class MovieController extends Controller
                 'include_image_language' => 'es'
             ])->object();*/
 
-        /*foreach ($response->results as $data){
+        foreach ($response->results as $data){
             $movie = new Movie();
             $movie->id = $data->id;
+            dd($response->results);
             $movie->imdb_id = $data->imdb_id;
             $movie->title = $data->title;
             $movie->overview = $data->overview;
@@ -47,8 +48,8 @@ class MovieController extends Controller
             $movie->adult = $data->adult;
             $movie->image = $configuracion->images->base_url.$configuracion->images->profile_sizes['3'].$data->poster_path;
             $movie->save();
-        }*/
-        $movie = new Movie();
+        }
+        /*$movie = new Movie();
         $movie->id = $response->id;
         $movie->imdb_id = $response->imdb_id;
         $movie->title = $response->title;
@@ -57,9 +58,8 @@ class MovieController extends Controller
         $movie->status = $response->status;
         $movie->adult = $response->adult;
         $movie->image = $configuracion->images->base_url.$configuracion->images->profile_sizes['3'].$response->poster_path;
-        $movie->save();
+        $movie->save();*/
 
-        return response($movie);
     }
 
     /**
