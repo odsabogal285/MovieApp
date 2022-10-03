@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     @foreach($movies as $movie)
-                        <div class="card" style="width: 18rem;">
+                        <div class="card" style="width: 13rem;">
                             <img src="{{$movie->image}}" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">{{$movie->title}}</h5>
@@ -18,7 +18,7 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">{{$movie->release_date}}</li>
                                 <li class="list-group-item">{{$movie->status}}</li>
-                                <li class="list-group-item">{{$movie->adult}}</li>
+                                {{--<li class="list-group-item">{{$movie->adult}}</li>--}}
                             </ul>
                            {{-- <div class="card-body">
                                 <a href="#" class="card-link">Card link</a>
