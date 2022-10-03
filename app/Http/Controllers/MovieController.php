@@ -15,31 +15,51 @@ class MovieController extends Controller
      */
     public function index()
     {
-        /*$response = Http::get('https://api.themoviedb.org/3/movie/550', [
+        $configuracion = Http::get('https://api.themoviedb.org/3/configuration', [
             'api_key' => env('API_KEY_TMBD'),
             'language' => 'es'
-        ]);*/
+        ])->object();
+
+        $response = Http::get('https://api.themoviedb.org/3/movie/550', [
+            'api_key' => env('API_KEY_TMBD'),
+            'language' => 'es'
+        ])->object();
 
         /*$response = Http::withToken(env('API_KEY_V4_TMBD'))
-        ->get('https://api.themoviedb.org/3/movie/76341', [
-            'language' => 'es'
-        ]);*/
-
-        $response = Http::withToken(env('API_KEY_V4_TMBD'))
             ->get('https://api.themoviedb.org/3/discover/movie', [
                 'language' => 'es'
-            ])->object();
-        dd($response);
-        foreach ($response->results as $data){
+            ])->object();*/
+
+        /*$response = Http::withToken(env('API_KEY_V4_TMBD'))
+            ->get('https://api.themoviedb.org/3/movie/550/images', [
+                'language' => 'es',
+                'include_image_language' => 'es'
+            ])->object();*/
+
+        /*foreach ($response->results as $data){
             $movie = new Movie();
             $movie->id = $data->id;
             $movie->imdb_id = $data->imdb_id;
+            $movie->title = $data->title;
+            $movie->overview = $data->overview;
+            $movie->release_date = $data->release_date;
+            $movie->status = $data->status;
+            $movie->adult = $data->adult;
+            $movie->image = $configuracion->images->base_url.$configuracion->images->profile_sizes['3'].$data->poster_path;
             $movie->save();
-        }
+        }*/
+        $movie = new Movie();
+        $movie->id = $response->id;
+        $movie->imdb_id = $response->imdb_id;
+        $movie->title = $response->title;
+        $movie->overview = $response->overview;
+        $movie->release_date = $response->release_date;
+        $movie->status = $response->status;
+        $movie->adult = $response->adult;
+        $movie->image = $configuracion->images->base_url.$configuracion->images->profile_sizes['3'].$response->poster_path;
+        $movie->save();
 
-        /*$page = $response->json('page');*/
-
-        return response($movies);
+        return response($movie);
     }
 
     /**
@@ -49,7 +69,8 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        $movies = Movie::all();
+        return view('index', compact('movies'));
     }
 
     /**
