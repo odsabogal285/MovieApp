@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class MovieController extends Controller
 {
@@ -14,7 +15,22 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //
+        /*$response = Http::get('https://api.themoviedb.org/3/movie/550', [
+            'api_key' => env('API_KEY_TMBD'),
+            'language' => 'es'
+        ]);*/
+
+        /*$response = Http::withToken(env('API_KEY_V4_TMBD'))
+        ->get('https://api.themoviedb.org/3/movie/76341', [
+            'language' => 'es'
+        ]);*/
+
+        $response = Http::withToken(env('API_KEY_V4_TMBD'))
+            ->get('https://api.themoviedb.org/3/discover/movie', [
+                'language' => 'es'
+            ]);
+
+        return response($response);
     }
 
     /**
